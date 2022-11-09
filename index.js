@@ -19,7 +19,6 @@ app.get('/', (req, res) => {
 
 // MongoDB
 
-// bauenAdmin nZuFJUJiUz9a0qXM
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.tyocyp7.mongodb.net/?retryWrites=true&w=majority`;
