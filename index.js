@@ -38,12 +38,25 @@ async function run() {
             res.send(Services);
         })
 
-        app.get('/allservices', async (req, res) => {
-            const query = {};
-            const cursor = serviceCollection.find(query);
-            const allServices = await cursor.toArray();
-            res.send(allServices);
+        // app.get('/allservices', async (req, res) => {
+        //     const query = {};
+        //     const cursor = serviceCollection.find(query);
+        //     const allServices = await cursor.toArray();
+        //     res.send(allServices);
+        // })
+
+        app.post('/allservices', async(req, res) => {
+            const newSer = req.body;
+            const result = await serviceCollection.insertOne(newSer);
+            res.send(result);
         })
+
+        // app.post('/allservices', async(req, res) => {
+        //     const newService = req.body;
+        //     const result = await serviceCollection.insertOne(newService);
+        //     res.send(result);
+        // })
+
 
         // loading specific data
 
