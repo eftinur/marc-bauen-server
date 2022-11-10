@@ -29,6 +29,7 @@ async function run() {
     try{
 
         const serviceCollection = client.db('bauen').collection('services');
+        const reviewCollection = client.db('bauen').collection('reviews');
 
         app.get('/services', async (req, res) => {
             const query = {};
@@ -51,6 +52,33 @@ async function run() {
             const query = {_id: ObjectId(id)};
             const service = await serviceCollection.findOne(query);
             res.send(service);
+        })
+
+        // review API
+        
+        app.post('/reviews', async(req, res) => {
+            const review = req.body;
+            const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        })
+
+        app.get('/reviews', async (req, res) => {
+            const query = {};
+            const cursor = reviewCollection.find(query);
+            const reviews = await cursor.toArray();
+            res.send(reviews);
+        })
+
+        app.get('/reviews', async(req, res) => {
+            let query = {};
+            if(req.query.email) {
+                query = {
+                    email: req.query.email
+                }
+            }
+            const cursor = reviewCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
         })
 
     }
